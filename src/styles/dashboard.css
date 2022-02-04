@@ -1,0 +1,24 @@
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.dashboard {
+  padding: 40px 20px;
+  background-color: #8876dc;
+  color: #fff;
+  border-radius: 20px;
+  margin: 30px;
+}
+
+.radioGroup {
+  display: "flex";
+  flex-direction: "column";
+  flex-wrap: "nowrap";
+  border: 1.6px solid #dde1e6;
+  background-color: #eff1f4;
+  box-sizing: border-box;
+  border-radius: 12px;
+  padding: "2px";
+}
