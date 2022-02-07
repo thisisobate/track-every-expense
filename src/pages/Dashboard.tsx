@@ -1,7 +1,13 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSignOutAlt,
+  faSync,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { RadioButton } from "../components/RadioButtonGroup";
+import { InputSearch } from "../components/InputSearch";
+import { TableList } from "../components/TableList";
 import "../styles/dashboard.css";
 
 const radioButtonOptions = [
@@ -12,6 +18,79 @@ const radioButtonOptions = [
   {
     value: "todo",
     label: "Todo",
+  },
+];
+
+const transactionList = [
+  {
+    expense: "Electricity",
+    amount: 10000,
+    date: "24th March",
+  },
+  {
+    expense: "Electricity",
+    amount: 10000,
+    date: "24th March",
+  },
+  {
+    expense: "Electricity",
+    amount: 10000,
+    date: "24th March",
+  },
+  {
+    expense: "Electricity",
+    amount: 10000,
+    date: "24th March",
+  },
+  {
+    expense: "Electricity",
+    amount: 10000,
+    date: "24th March",
+  },
+  {
+    expense: "Electricity",
+    amount: 10000,
+    date: "24th March",
+  },
+  {
+    expense: "Electricity",
+    amount: 10000,
+    date: "24th March",
+  },
+  {
+    expense: "Electricity",
+    amount: 10000,
+    date: "24th March",
+  },
+  {
+    expense: "Electricity",
+    amount: 10000,
+    date: "24th March",
+  },
+  {
+    expense: "Electricity",
+    amount: 10000,
+    date: "24th March",
+  },
+  {
+    expense: "Electricity",
+    amount: 10000,
+    date: "24th March",
+  },
+  {
+    expense: "Electricity",
+    amount: 10000,
+    date: "24th March",
+  },
+  {
+    expense: "Electricity",
+    amount: 10000,
+    date: "24th March",
+  },
+  {
+    expense: "Electricity",
+    amount: 10000,
+    date: "24th March",
   },
 ];
 
@@ -27,7 +106,7 @@ export const DashboardPage = () => {
     }
   };
   return (
-    <main>
+    <main className="main">
       <section className="flex-container">
         <div className="greeting">
           {formattedDate} <br />
@@ -54,6 +133,32 @@ export const DashboardPage = () => {
           </RadioButton>
         ))}
       </section>
+      <section className="searchBox">
+        <InputSearch placeholder="search transactions..." />
+      </section>
+      <section>
+        {transactionList.map((o, i) => (
+          <TableList
+            key={`o.expense-${i}`}
+            expense={o.expense}
+            date={o.date}
+            amount={o.amount}
+            itemExpandable={true}
+            iconPrefix={true}
+          />
+        ))}
+      </section>
+      <footer style={{ position: "absolute" }}>
+        <div className="footer-wrapper">
+          <button className="button button-sm button-transparent" type="submit">
+            <FontAwesomeIcon icon={faSync} className="button-icon" />
+          </button>
+          <button className="button button-md" type="submit">
+            <FontAwesomeIcon icon={faPlus} className="button-icon" />
+            Add Item
+          </button>
+        </div>
+      </footer>
     </main>
   );
 };

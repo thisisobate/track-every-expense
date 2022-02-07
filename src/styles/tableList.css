@@ -1,0 +1,43 @@
+.tableListWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.text-wrapper > h4 {
+    margin-bottom: 8px;
+}
+
+.flex-right-column {
+  display: flex;
+  flex: 5;
+  justify-content: space-between;
+  border-bottom: 1px solid #dde1e6;
+  padding-bottom: 20px;
+}
+
+.first-column {
+  flex: 1;
+}
+
+.third-column {
+  display: flex;
+  align-items: center;
+}
+
+.third-column > svg {
+  margin-left: 13px;
+}
+
+.arrowDownIcon {
+  border: 2px solid red;
+  width: 35%;
+  height: 30px;
+  margin: 0 auto;
+}
+
+.arrowDownIcon > svg {
+  position: relative;
+  top: 20%;
+}

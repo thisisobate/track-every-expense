@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 import "../styles/radioButtonGroup.css";
 
-export type RadioButtonSize = 'sm' | 'md';
+export type RadioButtonSize = "sm" | "md";
 
 export interface RadioButtonProps {
   size?: RadioButtonSize;
@@ -13,7 +13,7 @@ export interface RadioButtonProps {
   onChange: () => void;
   onClick: () => void;
   fullWidth?: boolean;
-  'aria-label'?: string;
+  "aria-label"?: string;
   children?: React.ReactNode;
 }
 
@@ -23,14 +23,14 @@ export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
       children,
       active = false,
       disabled = false,
-      size = 'md',
+      size = "md",
       onChange,
       onClick,
       id,
       name = undefined,
       description,
       fullWidth,
-      'aria-label': ariaLabel,
+      "aria-label": ariaLabel,
     },
     ref
   ) => {
@@ -38,7 +38,7 @@ export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
       <>
         <input
           type="radio"
-          className='radio'
+          className="radio"
           onChange={onChange}
           onClick={onClick}
           disabled={disabled}

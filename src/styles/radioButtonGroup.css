@@ -9,22 +9,24 @@
   font-weight: 600;
   background: #fff;
   border: 1.6px solid #dde1e6;
-  border-radius: 12px;;
-  width: 53%;
+  border-radius: 12px;
+  width: 50%;
   z-index: 3;
+  padding: 6px 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .radio:focus + label,
 .radio:focus-visible + label {
-  outline: "2px dotted transparent";
-  outline-offset: "2px";
-  box-shadow: "0 0 0 2px #111217, 0 0 0px 4px #181b1f";
-  transition: "all 0.2s cubic-bezier(0.19, 1, 0.22, 1)";
+  outline: 2px solid blue;
+  outline-offset: 2px;
 }
 
 .radio:focus:not(:focus-visible) + label {
-  outline: "none";
-  box-shadow: "none";
+  outline: none;
+  box-shadow: none;
 }
 
 .radio:disabled + label {
@@ -33,23 +35,21 @@
 }
 
 .radioLabel {
-  display: inline-block;
   position: relative;
   font-size: 20px;
-  width: 41%;
-  height: 20px;
+  width: 50%;
   line-height: 20px;
   color: #5f6a79;
   padding: 8px;
   border-radius: 4px;
   cursor: pointer;
   z-index: 1;
-  flex: "1 0 0";
+  flex: 1 0 0;
   text-align: center;
   user-select: none;
   white-space: nowrap;
 }
-
+/* 
 @media screen and (max-width: 600px) {
     .radioLabel {
         width: 38.92%;
@@ -58,4 +58,4 @@
     .radio:checked + label {
         width: 54%;
     }
-}
+} */
