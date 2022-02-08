@@ -154,7 +154,10 @@ export const DashboardPage = () => {
             <FontAwesomeIcon icon={faSync} className="button-icon" />
           </button>
           <button className="button button-md" type="submit">
-            <FontAwesomeIcon icon={faPlus} className="button-icon" />
+            <FontAwesomeIcon
+              icon={faPlus}
+              className="button-icon button-icon-left"
+            />
             Add Item
           </button>
         </div>
