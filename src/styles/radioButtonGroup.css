@@ -1,7 +1,7 @@
 .radio {
   position: absolute;
   opacity: 0;
-  z-index: -1000;
+  z-index: -100;
 }
 
 .radio:checked + label {

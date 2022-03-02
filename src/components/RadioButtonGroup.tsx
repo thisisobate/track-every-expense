@@ -11,7 +11,7 @@ export interface RadioButtonProps {
   active: boolean;
   id: string;
   onChange: () => void;
-  onClick: () => void;
+  onClick?: () => void;
   fullWidth?: boolean;
   "aria-label"?: string;
   children?: React.ReactNode;

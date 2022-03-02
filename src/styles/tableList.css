@@ -4,18 +4,28 @@
   justify-content: space-between;
 }
 
-
 .text-wrapper > h4 {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .flex-right-column {
   display: flex;
   flex: 5;
   justify-content: space-between;
+}
+
+.flex-right-column-2 {
+  display: flex;
+  flex: 5;
+  justify-content: space-between;
   border-bottom: 1px solid #dde1e6;
   padding-bottom: 20px;
 }
+
+/* .flex-right-column > .card {
+  display: block;
+  width: 100%;
+} */
 
 .first-column {
   flex: 1;

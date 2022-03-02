@@ -1,7 +1,12 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown, faArrowDown } from "@fortawesome/free-solid-svg-icons";
-import '../styles/tableList.css';
+import {
+  faChevronDown,
+  faArrowDown,
+  faChevronUp,
+} from "@fortawesome/free-solid-svg-icons";
+import "../styles/tableList.css";
+import { Card } from "./Card";
 
 // enum iconName { arrowDown = "faArrowDown"};
 // type iconName = typeof faArrowDown | typeof faArrowUp;
@@ -16,25 +21,48 @@ interface Props {
 
 export const TableList = (props: Props) => {
   const { iconPrefix, expense, amount, date, itemExpandable = false } = props;
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const onClick = () => {
+    return setIsOpen(!isOpen);
+  };
+
   return (
-    <div className="tableListWrapper">
-      <div className="first-column">
-        {iconPrefix && (
-          <div className="arrowDownIcon">
-            <FontAwesomeIcon icon={faArrowDown} />
+    <>
+      <div className="tableListWrapper">
+        <div className="first-column">
+          {iconPrefix && (
+            <div className="arrowDownIcon">
+              <FontAwesomeIcon icon={faArrowDown} />
+            </div>
+          )}
+        </div>
+        <div className="flex-right-column">
+          <div className="text-wrapper">
+            <h4>{expense}</h4>
+            {date}
           </div>
-        )}
-      </div>
-      <div className="flex-right-column">
-        <div className="text-wrapper">
-          <h4>{expense}</h4>
-          {date}
-        </div>
-        <div className="third-column">
-          <h3>{amount}</h3>
-          {itemExpandable && <FontAwesomeIcon icon={faChevronDown} />}
+          <div className="third-column">
+            <h3>{amount}</h3>
+            {itemExpandable && !isOpen ? (
+              <FontAwesomeIcon icon={faChevronDown} onClick={onClick} />
+            ) : (
+              <FontAwesomeIcon icon={faChevronUp} onClick={onClick} />
+            )}
+          </div>
         </div>
       </div>
-    </div>
+      <div className="tableListWrapper">
+        <div className="first-column"></div>
+        <div className="flex-right-column-2">
+          {isOpen && (
+            <Card
+              title="expense details"
+              description="This is the total details of our expenses for today. Suace code paid on behalf of the house"
+            />
+          )}
+        </div>
+      </div>
+    </>
   );
 };

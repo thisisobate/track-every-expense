@@ -8,6 +8,54 @@
   position: relative;
 }
 
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.modal-input {
+  margin-bottom: 10px;
+}
+
+.modal-input > input {
+  padding: 0px 8px;
+  background: rgb(255, 255, 255);
+  line-height: 1.5;
+  font-size: 14px;
+  color: rgb(36, 41, 46);
+  border: 1px solid rgba(36, 41, 46, 0.3);
+  position: relative;
+  z-index: 0;
+  border-radius: 2px;
+  height: 32px;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.modal-input > label {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.25;
+  margin-bottom: 7px;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 10px 0px 16px;
+}
+
+.ReactModal__Overlay {
+  z-index: 1000;
+}
+
 .dashboard {
   padding: 40px 20px;
   background-color: #8876dc;
@@ -49,7 +97,7 @@ button {
 }
 
 .button-sm {
-  padding: 10px;
+  padding: 4px 7px;
   border-radius: 0.4rem;
 }
 
