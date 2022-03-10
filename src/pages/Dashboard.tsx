@@ -103,8 +103,8 @@ const customStyles = {
     right: "auto",
     bottom: "auto",
     transform: "translate(-50%, -50%)",
-    width: "600px",
-    maxWidth: "100%",
+    width: "90%",
+    maxWidth: "600px",
   },
 };
 
