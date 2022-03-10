@@ -6,6 +6,8 @@ import {
   faChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
 import "../styles/tableList.css";
+import arrowDownIcon from "../images/arrow-down-icon.png";
+import arrowUpIcon from "../images/arrow-up-icon.png";
 import { Card } from "./Card";
 
 // enum iconName { arrowDown = "faArrowDown"};
@@ -16,11 +18,19 @@ interface Props {
   amount: number;
   date: string;
   iconPrefix?: boolean;
+  type: string;
   itemExpandable: boolean;
 }
 
 export const TableList = (props: Props) => {
-  const { iconPrefix, expense, amount, date, itemExpandable = false } = props;
+  const {
+    iconPrefix,
+    expense,
+    amount,
+    type,
+    date,
+    itemExpandable = false,
+  } = props;
   const [isOpen, setIsOpen] = React.useState(false);
 
   const onClick = () => {
@@ -33,7 +43,10 @@ export const TableList = (props: Props) => {
         <div className="first-column">
           {iconPrefix && (
             <div className="arrowDownIcon">
-              <FontAwesomeIcon icon={faArrowDown} />
+              <img
+                src={type === "debit" ? arrowDownIcon : arrowUpIcon}
+                alt={type + " transaction"}
+              />
             </div>
           )}
         </div>

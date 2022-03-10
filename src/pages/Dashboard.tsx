@@ -10,6 +10,7 @@ import { RadioButton } from "../components/RadioButtonGroup";
 import { InputSearch } from "../components/InputSearch";
 import { TableList } from "../components/TableList";
 import Modal from "react-modal";
+import logoutIcon from "../images/logout.png";
 import "../styles/dashboard.css";
 
 const radioButtonOptions = [
@@ -28,71 +29,85 @@ const transactionList = [
     expense: "Electricity",
     amount: 10000,
     date: "24th March",
+    type: "debit",
   },
   {
     expense: "Electricity",
     amount: 10000,
     date: "24th March",
+    type: "debit",
   },
   {
     expense: "Electricity",
     amount: 10000,
     date: "24th March",
+    type: "debit",
   },
   {
     expense: "Electricity",
     amount: 10000,
     date: "24th March",
+    type: "credit",
   },
   {
     expense: "Electricity",
     amount: 10000,
     date: "24th March",
+    type: "debit",
   },
   {
     expense: "Electricity",
     amount: 10000,
     date: "24th March",
+    type: "debit",
   },
   {
     expense: "Electricity",
     amount: 10000,
     date: "24th March",
+    type: "debit",
   },
   {
     expense: "Electricity",
     amount: 10000,
     date: "24th March",
+    type: "debit",
   },
   {
     expense: "Electricity",
     amount: 10000,
     date: "24th March",
+    type: "debit",
   },
   {
     expense: "Electricity",
     amount: 10000,
     date: "24th March",
+    type: "debit",
   },
   {
     expense: "Electricity",
     amount: 10000,
     date: "24th March",
+    type: "debit",
   },
   {
     expense: "Electricity",
     amount: 10000,
     date: "24th March",
+    type: "debit",
   },
   {
     expense: "Electricity",
     amount: 10000,
     date: "24th March",
+    type: "debit",
   },
   {
     expense: "Electricity",
     amount: 10000,
     date: "24th March",
+    type: "debit",
   },
 ];
 
@@ -137,7 +152,7 @@ export const DashboardPage = () => {
           <span>How far, Daze</span>
         </div>
         <div>
-          <FontAwesomeIcon icon={faSignOutAlt} />
+          <img src={logoutIcon} alt="sign out" />
         </div>
       </section>
       <section className="dashboard">
@@ -168,6 +183,7 @@ export const DashboardPage = () => {
               expense={o.expense}
               date={o.date}
               amount={o.amount}
+              type={o.type}
               itemExpandable={true}
               iconPrefix={true}
             />
@@ -175,22 +191,27 @@ export const DashboardPage = () => {
         {value === "todo" && <div>Coming soon!</div>}
       </section>
       <footer style={{ position: "absolute" }}>
-        <div className="footer-wrapper">
-          <button className="button button-sm button-transparent" type="submit">
-            <FontAwesomeIcon icon={faSync} className="button-icon" />
-          </button>
-          <button
-            className="button button-md"
-            type="submit"
-            onClick={openModal}
-          >
-            <FontAwesomeIcon
-              icon={faPlus}
-              className="button-icon button-icon-left"
-            />
-            Add Item
-          </button>
-        </div>
+        {value === "transactions" && (
+          <div className="footer-wrapper">
+            <button
+              className="button button-sm button-transparent"
+              type="submit"
+            >
+              <FontAwesomeIcon icon={faSync} className="button-icon" />
+            </button>
+            <button
+              className="button button-md"
+              type="submit"
+              onClick={openModal}
+            >
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="button-icon button-icon-left"
+              />
+              Add Item
+            </button>
+          </div>
+        )}
         <Modal
           isOpen={showModal}
           onRequestClose={closeModal}

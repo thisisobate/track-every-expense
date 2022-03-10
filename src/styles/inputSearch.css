@@ -29,3 +29,10 @@
   outline: 2px solid blue;
   outline-offset: 2px;
 }
+
+@media screen and (max-width: 600px) {
+  .searchIcon {
+    float: left;
+    margin-top: 1.9%;
+  }
+}
