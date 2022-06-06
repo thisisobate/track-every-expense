@@ -15,7 +15,7 @@ import { Card } from "./Card";
 
 interface Props {
   expense: string;
-  amount: number;
+  amount: string;
   date: string;
   iconPrefix?: boolean;
   type: string;
@@ -39,43 +39,42 @@ export const TableList = (props: Props) => {
 
   return (
     <>
-      <div className="tableListWrapper">
-        <div className="first-column">
-          {iconPrefix && (
-            <div className="arrowDownIcon">
-              <img
-                src={type === "debit" ? arrowDownIcon : arrowUpIcon}
-                alt={type + " transaction"}
-              />
-            </div>
-          )}
-        </div>
-        <div className="flex-right-column">
-          <div className="text-wrapper">
-            <h4>{expense}</h4>
-            {date}
-          </div>
-          <div className="third-column">
-            <h3>{amount}</h3>
-            {itemExpandable && !isOpen ? (
-              <FontAwesomeIcon icon={faChevronDown} onClick={onClick} />
-            ) : (
-              <FontAwesomeIcon icon={faChevronUp} onClick={onClick} />
+    {expense.length > 0 && (
+      <><div className="tableListWrapper">
+          <div className="first-column">
+            {iconPrefix && (
+              <div className="arrowDownIcon">
+                <img
+                  src={type === "debit" ? arrowDownIcon : arrowUpIcon}
+                  alt={type + " transaction"} />
+              </div>
             )}
           </div>
-        </div>
-      </div>
-      <div className="tableListWrapper">
-        <div className="first-column"></div>
-        <div className="flex-right-column-2">
-          {isOpen && (
-            <Card
-              title="expense details"
-              description="This is the total details of our expenses for today. Suace code paid on behalf of the house"
-            />
-          )}
-        </div>
-      </div>
-    </>
+          <div className="flex-right-column">
+            <div className="text-wrapper">
+              <h4>{expense}</h4>
+              {date}
+            </div>
+            <div className="third-column">
+              <h3>{amount}</h3>
+              {itemExpandable && !isOpen ? (
+                <FontAwesomeIcon icon={faChevronDown} onClick={onClick} />
+              ) : (
+                <FontAwesomeIcon icon={faChevronUp} onClick={onClick} />
+              )}
+            </div>
+          </div>
+        </div><div className="tableListWrapper">
+            <div className="first-column"></div>
+            <div className="flex-right-column-2">
+              {isOpen && (
+                <Card
+                  title="expense details"
+                  description="This is the total details of our expenses for today. Suace code paid on behalf of the house" />
+              )}
+            </div>
+          </div></>
+      )}
+      </>
   );
 };

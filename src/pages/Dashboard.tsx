@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FormEvent, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSignOutAlt,
@@ -129,11 +129,29 @@ export const DashboardPage = () => {
   const formattedDate = `${dateTime[2]} ${dateTime[1]}, ${dateTime[3]}`;
   const [value, setValue] = React.useState("transactions");
   const [showModal, setShowModal] = React.useState(false);
+  const [transactionMap, setTransactionMap] = React.useState([{ id :"", expense: "", date: "", amount: "", type: "" }]);
+  const formRef = useRef() as React.MutableRefObject<HTMLFormElement>;
 
   const handleOnClick = (option: any) => {
     if (option) {
       return setValue(option.value);
     }
+  };
+
+  const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(formRef.current);
+    const formDataValue: { [key: string]: string } = {};
+    for (const [key, value] of formData) {
+      formDataValue[key] = String(value);
+    }
+    const stringifyFormData = JSON.stringify(formDataValue);
+    localStorage.setItem('expense data', stringifyFormData);
+    const newTransactionList = JSON.parse(localStorage.getItem('expense data') as string);
+    
+    setTransactionMap(prev => [...prev, newTransactionList]);
+    console.log(transactionMap)
+    closeModal();
   };
 
   const openModal = () => {
@@ -176,8 +194,21 @@ export const DashboardPage = () => {
         <InputSearch placeholder="search transactions..." />
       </section>
       <section>
-        {value === "transactions" &&
-          transactionList.map((o, i) => (
+      {value === "transactions" && transactionMap.length ===
+       0 &&
+          <div>
+            Welcome to Expense Tracker App! <br /><br />
+            <button
+              className="button button-md"
+              type="submit"
+              onClick={openModal}
+            >
+              Get Started
+            </button>
+          </div>
+          }
+        {value === "transactions" && transactionMap.length > 1 &&
+          transactionMap.map((o, i) => (
             <TableList
               key={`o.expense-${i}`}
               expense={o.expense}
@@ -191,7 +222,7 @@ export const DashboardPage = () => {
         {value === "todo" && <div>Coming soon!</div>}
       </section>
       <footer style={{ position: "absolute" }}>
-        {value === "transactions" && (
+        {value === "transactions" && transactionMap.length > 1 && (
           <div className="footer-wrapper">
             <button
               className="button button-sm button-transparent"
@@ -212,6 +243,7 @@ export const DashboardPage = () => {
             </button>
           </div>
         )}
+        {console.log(localStorage)}
         <Modal
           isOpen={showModal}
           onRequestClose={closeModal}
@@ -222,18 +254,18 @@ export const DashboardPage = () => {
             <FontAwesomeIcon icon={faTimes} className="button-icon" />
           </button>
           <div className="modal-title">I am a modal</div>
-          <form>
+          <form ref={formRef} onSubmit={(event) => handleFormSubmit(event)}>
             <div className="flex flex-column modal-input space-between">
               <label>expense</label>
-              <input type="text" />
+              <input name="expense" type="text" />
             </div>
             <div className="flex flex-column modal-input">
-              <label>expense</label>
-              <input type="text" />
+              <label>amount</label>
+              <input name="amount" type="number" />
             </div>
             <div className="flex flex-column modal-input">
-              <label>expense</label>
-              <input type="text" />
+              <label>type</label>
+              <input name="type" type="text" />
             </div>
             <button className="button button-md">Add</button>
           </form>
