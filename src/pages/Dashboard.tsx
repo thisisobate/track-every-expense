@@ -11,6 +11,8 @@ import { InputSearch } from "../components/InputSearch";
 import { TableList } from "../components/TableList";
 import Modal from "react-modal";
 import logoutIcon from "../images/logout.png";
+import uuid from 'uuidv4';
+import {useEffectOnce} from 'react-use';
 import "../styles/dashboard.css";
 
 const radioButtonOptions = [
@@ -123,20 +125,50 @@ const customStyles = {
   },
 };
 
+type Transaction = {
+  [key: string]: string;
+}
+
+// const newTransactionList = JSON.parse(localStorage.getItem('expense data') as string);
+
+
 export const DashboardPage = () => {
   const currentDate = new Date();
   const dateTime = currentDate.toString().split(" ");
   const formattedDate = `${dateTime[2]} ${dateTime[1]}, ${dateTime[3]}`;
   const [value, setValue] = React.useState("transactions");
   const [showModal, setShowModal] = React.useState(false);
-  const [transactionMap, setTransactionMap] = React.useState([{ id :"", expense: "", date: "", amount: "", type: "" }]);
+  const [transactionMap, setTransactionMap] = React.useState<Transaction[]>([]);
   const formRef = useRef() as React.MutableRefObject<HTMLFormElement>;
+  const formItemRef = React.createRef<HTMLDivElement>();
+  const id = `expense-item-${uuid()}`;
 
   const handleOnClick = (option: any) => {
     if (option) {
       return setValue(option.value);
     }
   };
+
+  useEffectOnce(() => {
+    const transactionList = JSON.parse(localStorage.getItem('expense data') as string);
+    if (transactionList) {
+      setTransactionMap(transactionList);
+    } else {
+      setTransactionMap(prev => [...prev, { id :"", expense: "", date: "", amount: "", type: "" }])
+    }
+  })
+  
+  
+
+  const handleDelete = () => {
+    const itemName = formItemRef?.current?.id;
+    const newTransactionList = JSON.parse(localStorage.getItem('expense data') as string);
+    const itemsList = newTransactionList.filter((item: { id: string | undefined; }) => item.id !== itemName);
+    const stringifyData = JSON.stringify(itemsList);
+    localStorage.removeItem('expense data');
+    localStorage.setItem('expense data', stringifyData);
+    setTransactionMap(itemsList);
+  }
 
   const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -145,14 +177,16 @@ export const DashboardPage = () => {
     for (const [key, value] of formData) {
       formDataValue[key] = String(value);
     }
-    const stringifyFormData = JSON.stringify(formDataValue);
+    formDataValue['id'] = id;
+    const newMap = [...transactionMap, formDataValue];
+    const stringifyFormData = JSON.stringify(newMap);
+    localStorage.removeItem('expense data');
     localStorage.setItem('expense data', stringifyFormData);
     const newTransactionList = JSON.parse(localStorage.getItem('expense data') as string);
-    
-    setTransactionMap(prev => [...prev, newTransactionList]);
-    console.log(transactionMap)
+    setTransactionMap(newTransactionList);
     closeModal();
   };
+  console.log(transactionMap);
 
   const openModal = () => {
     return setShowModal(true);
@@ -161,6 +195,30 @@ export const DashboardPage = () => {
   const closeModal = () => {
     return setShowModal(false);
   };
+
+  const result: Transaction = {};
+  let expenseBalance = 0;
+
+  transactionMap.forEach((item) => {
+    if (item.type === "debit") {
+      expenseBalance -= parseInt(item.amount);
+    } else if (item.type === "credit") {
+      expenseBalance += parseInt(item.amount);
+    }
+    result['balance'] = String(expenseBalance);
+  });
+  
+  const formatter = new Intl.NumberFormat('en-NG', {
+    style: 'currency',
+    currency: 'NGN',
+    minimumFractionDigits: 2
+  })
+
+  const balance = parseInt(result.balance);
+  
+  const formattedBalance = formatter.format(balance)
+
+
 
   return (
     <main className="main">
@@ -175,7 +233,7 @@ export const DashboardPage = () => {
       </section>
       <section className="dashboard">
         <div>Home Balance wey remain</div>
-        <h2>$40,000</h2>
+        <h2>{formattedBalance}</h2>
       </section>
       <section className="radioGroup">
         {radioButtonOptions.map((o, i) => (
@@ -195,7 +253,7 @@ export const DashboardPage = () => {
       </section>
       <section>
       {value === "transactions" && transactionMap.length ===
-       0 &&
+       1 &&
           <div>
             Welcome to Expense Tracker App! <br /><br />
             <button
@@ -210,13 +268,16 @@ export const DashboardPage = () => {
         {value === "transactions" && transactionMap.length > 1 &&
           transactionMap.map((o, i) => (
             <TableList
-              key={`o.expense-${i}`}
+              key={o.id}
+              id={o.id}
+              ref={formItemRef}
               expense={o.expense}
               date={o.date}
               amount={o.amount}
               type={o.type}
               itemExpandable={true}
               iconPrefix={true}
+              onDelete={() => handleDelete()}
             />
           ))}
         {value === "todo" && <div>Coming soon!</div>}
@@ -254,7 +315,7 @@ export const DashboardPage = () => {
             <FontAwesomeIcon icon={faTimes} className="button-icon" />
           </button>
           <div className="modal-title">I am a modal</div>
-          <form ref={formRef} onSubmit={(event) => handleFormSubmit(event)}>
+          <form ref={formRef} onSubmit={handleFormSubmit}>
             <div className="flex flex-column modal-input space-between">
               <label>expense</label>
               <input name="expense" type="text" />
