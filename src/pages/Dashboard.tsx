@@ -26,93 +26,6 @@ const radioButtonOptions = [
   },
 ];
 
-const transactionList = [
-  {
-    expense: "Electricity",
-    amount: 10000,
-    date: "24th March",
-    type: "debit",
-  },
-  {
-    expense: "Electricity",
-    amount: 10000,
-    date: "24th March",
-    type: "debit",
-  },
-  {
-    expense: "Electricity",
-    amount: 10000,
-    date: "24th March",
-    type: "debit",
-  },
-  {
-    expense: "Electricity",
-    amount: 10000,
-    date: "24th March",
-    type: "credit",
-  },
-  {
-    expense: "Electricity",
-    amount: 10000,
-    date: "24th March",
-    type: "debit",
-  },
-  {
-    expense: "Electricity",
-    amount: 10000,
-    date: "24th March",
-    type: "debit",
-  },
-  {
-    expense: "Electricity",
-    amount: 10000,
-    date: "24th March",
-    type: "debit",
-  },
-  {
-    expense: "Electricity",
-    amount: 10000,
-    date: "24th March",
-    type: "debit",
-  },
-  {
-    expense: "Electricity",
-    amount: 10000,
-    date: "24th March",
-    type: "debit",
-  },
-  {
-    expense: "Electricity",
-    amount: 10000,
-    date: "24th March",
-    type: "debit",
-  },
-  {
-    expense: "Electricity",
-    amount: 10000,
-    date: "24th March",
-    type: "debit",
-  },
-  {
-    expense: "Electricity",
-    amount: 10000,
-    date: "24th March",
-    type: "debit",
-  },
-  {
-    expense: "Electricity",
-    amount: 10000,
-    date: "24th March",
-    type: "debit",
-  },
-  {
-    expense: "Electricity",
-    amount: 10000,
-    date: "24th March",
-    type: "debit",
-  },
-];
-
 const customStyles = {
   content: {
     top: "50%",
@@ -128,9 +41,6 @@ const customStyles = {
 type Transaction = {
   [key: string]: string;
 }
-
-// const newTransactionList = JSON.parse(localStorage.getItem('expense data') as string);
-
 
 export const DashboardPage = () => {
   const currentDate = new Date();
@@ -186,7 +96,6 @@ export const DashboardPage = () => {
     setTransactionMap(newTransactionList);
     closeModal();
   };
-  console.log(transactionMap);
 
   const openModal = () => {
     return setShowModal(true);
@@ -304,7 +213,6 @@ export const DashboardPage = () => {
             </button>
           </div>
         )}
-        {console.log(localStorage)}
         <Modal
           isOpen={showModal}
           onRequestClose={closeModal}
