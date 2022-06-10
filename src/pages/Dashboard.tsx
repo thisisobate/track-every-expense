@@ -51,6 +51,7 @@ export const DashboardPage = () => {
   const [transactionMap, setTransactionMap] = React.useState<Transaction[]>([]);
   const formRef = useRef() as React.MutableRefObject<HTMLFormElement>;
   const formItemRef = React.createRef<HTMLDivElement>();
+  const searchRef = React.createRef<HTMLInputElement>();
   const id = `expense-item-${uuid()}`;
 
   const handleOnClick = (option: any) => {
@@ -68,6 +69,15 @@ export const DashboardPage = () => {
     }
   })
   
+  const handleSearchChange = () => {
+    const query = searchRef.current?.value;
+    if (query === '') {
+      setTransactionMap(JSON.parse(localStorage.getItem('expense data') as string));
+    } else {
+      const filteredTransaction = transactionMap.filter(item => item.expense.includes(query as string))
+      setTransactionMap(filteredTransaction);
+    }
+  }
   
 
   const handleDelete = () => {
@@ -158,11 +168,11 @@ export const DashboardPage = () => {
         ))}
       </section>
       <section className="searchBox">
-        <InputSearch placeholder="search transactions..." />
+        <InputSearch ref={searchRef} onChange={handleSearchChange} placeholder="search transactions..." />
       </section>
       <section>
       {value === "transactions" && transactionMap.length ===
-       1 &&
+       1 && transactionMap[0].expense.length === 0 &&
           <div>
             Welcome to Expense Tracker App! <br /><br />
             <button
@@ -174,7 +184,7 @@ export const DashboardPage = () => {
             </button>
           </div>
           }
-        {value === "transactions" && transactionMap.length > 1 &&
+        {value === "transactions" && transactionMap.length > 0 &&
           transactionMap.map((o, i) => (
             <TableList
               key={o.id}

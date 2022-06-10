@@ -7,13 +7,14 @@ import "../styles/inputSearch.css";
 interface Props {
   placeholder: string;
   activateFilter?: boolean;
+  onChange: () => void;
 }
 
-export const InputSearch = ({ placeholder, activateFilter = false }: Props) => {
+export const InputSearch = React.forwardRef<HTMLInputElement, Props>(({ placeholder, onChange, activateFilter = false }: Props, ref) => {
   return (
     <div className="searchContainer">
       <img src={searchIcon} alt="search" className="searchIcon" />
-      <input type="search" placeholder={placeholder} name="" id="" />
+      <input ref={ref} type="search" placeholder={placeholder} onChange={onChange} name="" id="" />
       {activateFilter && (
         <span>
           <FontAwesomeIcon icon={faSlidersH} className="sliderIcon" />
@@ -21,4 +22,4 @@ export const InputSearch = ({ placeholder, activateFilter = false }: Props) => {
       )}
     </div>
   );
-};
+});
