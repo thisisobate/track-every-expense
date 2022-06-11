@@ -180,7 +180,7 @@ export const DashboardPage = () => {
         ))}
       </section>
       <section className="searchBox">
-        <InputSearch ref={searchRef} onChange={handleSearchChange} placeholder="search transactions using expense name..." />
+        <InputSearch ref={searchRef} onChange={handleSearchChange} placeholder="search by expense name..." />
       </section>
       <section>
       {value === "transactions" && transactionMap.length ===
