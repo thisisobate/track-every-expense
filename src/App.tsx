@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./logo.svg";
 import { DashboardPage } from "../src/pages/Dashboard";
 import "./App.css";
 
