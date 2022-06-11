@@ -31,6 +31,7 @@ interface Props {
   id: string;
   expense: string;
   amount: string;
+  description: string;
   date: string;
   iconPrefix?: boolean;
   type: string;
@@ -45,6 +46,7 @@ export const TableList = React.forwardRef<HTMLDivElement, Props>(
       id,
       expense,
       amount,
+      description,
       type,
       date,
       itemExpandable = false,
@@ -88,7 +90,7 @@ export const TableList = React.forwardRef<HTMLDivElement, Props>(
               <div className="flex-right-column">
                 <div className="text-wrapper">
                   <h4>{expense}</h4>
-                  {date}
+                  <p>{date}</p>
                 </div>
                 <div className="third-column">
                   <h3>{amount}</h3>
@@ -107,7 +109,7 @@ export const TableList = React.forwardRef<HTMLDivElement, Props>(
                 {isOpen && (
                   <Card
                     title="expense details"
-                    description="This is the total details of our expenses for today. Suace code paid on behalf of the house"
+                    description={description}
                   />
                 )}
               </div>

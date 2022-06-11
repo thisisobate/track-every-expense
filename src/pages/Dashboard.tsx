@@ -1,8 +1,7 @@
 import React, { FormEvent, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faSignOutAlt,
-  faSync,
+  faChevronUp,
   faPlus,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
@@ -10,10 +9,11 @@ import { RadioButton } from "../components/RadioButtonGroup";
 import { InputSearch } from "../components/InputSearch";
 import { TableList } from "../components/TableList";
 import Modal from "react-modal";
-import logoutIcon from "../images/logout.png";
+import heart from "../images/heart.png";
 import uuid from 'uuidv4';
 import {useEffectOnce} from 'react-use';
 import "../styles/dashboard.css";
+import { prettifyDate } from "../util/dateFormatter";
 
 const radioButtonOptions = [
   {
@@ -44,8 +44,7 @@ type Transaction = {
 
 export const DashboardPage = () => {
   const currentDate = new Date();
-  const dateTime = currentDate.toString().split(" ");
-  const formattedDate = `${dateTime[2]} ${dateTime[1]}, ${dateTime[3]}`;
+  const formattedDate = prettifyDate(currentDate);
   const [value, setValue] = React.useState("transactions");
   const [showModal, setShowModal] = React.useState(false);
   const [transactionMap, setTransactionMap] = React.useState<Transaction[]>([]);
@@ -65,7 +64,7 @@ export const DashboardPage = () => {
     if (transactionList) {
       setTransactionMap(transactionList);
     } else {
-      setTransactionMap(prev => [...prev, { id :"", expense: "", date: "", amount: "", type: "" }])
+      setTransactionMap(prev => [...prev, { id :"", expense: "", date: "", description: "", amount: "", type: "" }])
     }
   })
   
@@ -93,11 +92,14 @@ export const DashboardPage = () => {
   const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(formRef.current);
+    const currentDate = new Date();
+    const formattedDate = prettifyDate(currentDate);
     const formDataValue: { [key: string]: string } = {};
     for (const [key, value] of formData) {
       formDataValue[key] = String(value);
     }
     formDataValue['id'] = id;
+    formDataValue['date'] = formattedDate;
     const newMap = [...transactionMap, formDataValue];
     const stringifyFormData = JSON.stringify(newMap);
     localStorage.removeItem('expense data');
@@ -113,6 +115,14 @@ export const DashboardPage = () => {
 
   const closeModal = () => {
     return setShowModal(false);
+  };
+
+  const scrollToTop = () => {
+   return window.scroll({
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth'
+    });
   };
 
   const result: Transaction = {};
@@ -144,10 +154,12 @@ export const DashboardPage = () => {
       <section className="flex-container">
         <div className="greeting">
           {formattedDate} <br />
-          <span>How far, Daze</span>
+          <span>Welcome, Human!</span>
         </div>
         <div>
-          <img src={logoutIcon} alt="sign out" />
+          <a href="https://github.com/thisisobate/home-expense-tracker" target="_blank" rel="noopener noreferrer">
+            <img src={heart} alt="I love this app" width={20} height={20} />
+          </a>
         </div>
       </section>
       <section className="dashboard">
@@ -193,6 +205,7 @@ export const DashboardPage = () => {
               expense={o.expense}
               date={o.date}
               amount={o.amount}
+              description={o.description}
               type={o.type}
               itemExpandable={true}
               iconPrefix={true}
@@ -206,9 +219,9 @@ export const DashboardPage = () => {
           <div className="footer-wrapper">
             <button
               className="button button-sm button-transparent"
-              type="submit"
+              onClick={scrollToTop}
             >
-              <FontAwesomeIcon icon={faSync} className="button-icon" />
+              <FontAwesomeIcon icon={faChevronUp} className="button-icon" />
             </button>
             <button
               className="button button-md"
@@ -232,19 +245,32 @@ export const DashboardPage = () => {
           <button className="button-sm button-transparent" onClick={closeModal}>
             <FontAwesomeIcon icon={faTimes} className="button-icon" />
           </button>
-          <div className="modal-title">I am a modal</div>
+          <div className="modal-title">Add Expense</div>
           <form ref={formRef} onSubmit={handleFormSubmit}>
             <div className="flex flex-column modal-input space-between">
-              <label>expense</label>
+              <label>Expense</label>
               <input name="expense" type="text" />
             </div>
             <div className="flex flex-column modal-input">
-              <label>amount</label>
+              <label>Amount</label>
               <input name="amount" type="number" />
             </div>
             <div className="flex flex-column modal-input">
-              <label>type</label>
-              <input name="type" type="text" />
+              <label>Description</label>
+              <textarea name="description" rows={5} cols={33} />
+            </div>
+            <div className="flex flex-column modal-input">
+              <label>Type</label>
+              <div className="flex">
+                <div className="form-container">
+                  <input type="radio" id="debit" name="type" value="debit" />
+                  <label htmlFor="debit">Debit</label>
+                </div>
+                <div className="form-container">
+                  <input type="radio" id="credit" name="type" value="credit" />
+                  <label htmlFor="credit">Credit</label>
+                </div>
+              </div>
             </div>
             <button className="button button-md">Add</button>
           </form>

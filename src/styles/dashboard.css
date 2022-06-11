@@ -16,6 +16,10 @@
   flex-direction: column;
 }
 
+.greeting {
+  text-align: left;
+}
+
 .space-between {
   justify-content: space-between;
 }
@@ -54,6 +58,10 @@
 
 .ReactModal__Overlay {
   z-index: 1000;
+}
+
+.form-container {
+  font-size: 0.8rem;
 }
 
 .dashboard {

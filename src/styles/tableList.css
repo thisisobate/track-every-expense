@@ -4,6 +4,14 @@
   justify-content: space-between;
 }
 
+.text-wrapper{
+  text-align: left;
+}
+
+.text-wrapper > p {
+  font-size: small;
+}
+
 .text-wrapper > h4 {
   margin-bottom: 8px;
 }

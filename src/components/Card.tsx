@@ -10,7 +10,7 @@ export const Card = ({ title, description }: cardProps) => {
   return (
     <div className="card">
       <h5>{title}</h5>
-      <div>{description}</div>
+      <div>{description || 'no detail found'}</div>
     </div>
   );
 };
