@@ -1,5 +1,5 @@
-# home-expense-tracker
-Home expense tracker is a web application that allows you to track your home expenses.
+# Track every expense
+Track-every-expense is a web application that allows you to track your expenses.
 
 # Installation
 To install this project, clone this repository on GitHub or run this command: git clone https://github.com/thisisobate/home-expense-tracker.git
