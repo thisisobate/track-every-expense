@@ -2,8 +2,9 @@
 Track-every-expense is a web application that allows you to track your expenses.
 
 # Installation
-To install this project, clone this repository on GitHub or run this command: git clone https://github.com/thisisobate/home-expense-tracker.git
-Run project
+To install this project, clone this repository on GitHub or run this command: git clone https://github.com/thisisobate/track-every-expense.git
+
+# Run project
 First, you need to install all the necessary dependencies. In the project directory, you can run: `yarn install`.
 
 Next, run `yarn start` to load the app in the browser.
