@@ -1,6 +1,11 @@
 # Track every expense
 Track-every-expense is a web application that allows you to track your expenses.
 
+# Features
+- Easy to use 
+- Built with accessibility in mind
+- Works without internet data!
+
 # Installation
 To install this project, clone this repository on GitHub or run this command: git clone https://github.com/thisisobate/track-every-expense.git
 
